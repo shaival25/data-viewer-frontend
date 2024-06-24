@@ -19,6 +19,7 @@ import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css';
+import Cookies from 'js-cookies';
 import { useEffect, useMemo, useState } from 'react';
 import { FilePlus } from 'react-feather';
 
@@ -47,10 +48,15 @@ const Competitor = () => {
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
   const toggleFieldDropdown = () => setFieldDropdownOpen((prevState) => !prevState);
 
-  const fetchData = async (searchField, searchValue) => {
-    const params = searchField && searchValue ? { [searchField]: searchValue } : {};
-    const response = await axios.get('http://localhost:5000/competitors', { params });
+  const fetchData = async () => {
+    const response = await axios.get('http://localhost:5000/competitors', {
+      headers: {
+        Authorization: `Bearer ${Cookies.getItem('authToken')}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     if (response.status === 200) {
+      console.log(response.data.data);
       setTotalQuantity(response.data.totalQuantity);
       setAvgRate(response.data.avgRate);
       const updatedData = response.data.data.map((item) => ({
@@ -109,7 +115,7 @@ const Competitor = () => {
       try {
         const response = await axios.post('http://localhost:5000/uploads', formData, {
           headers: {
-            Authorization: `Bearer ${Cookies.get('authToken')}`,
+            Authorization: `Bearer ${Cookies.getItem('authToken')}`,
             'Content-Type': 'multipart/form-data',
           },
         });

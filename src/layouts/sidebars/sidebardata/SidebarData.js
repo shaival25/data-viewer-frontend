@@ -1,6 +1,15 @@
 import * as Icon from 'react-feather';
 
 const SidebarData = [
+  { caption: 'Home' },
+  {
+    title: 'Competitors',
+    href: '/competitors',
+    icon: <Icon.Database />,
+    collapisble: false,
+  },
+  { title: 'Delete', href: '/delete', icon: <Icon.Trash2 />, collapisble: false },
+  { title: 'Users', href: '/users', icon: <Icon.Users />, collapisble: false },
   { caption: 'Personal' },
   {
     title: 'Dashboards',

@@ -1,6 +1,11 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/loader/Loadable';
+
+/***Needed Pages  ***/
+const Competitor = Loadable(lazy(() => import('../views/pages/Competitor')));
+const Login = Loadable(lazy(() => import('../views/pages/Login')));
+const DeleteData = Loadable(lazy(() => import('../views/pages/DeleteData')));
 /****Layouts*****/
 
 const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
@@ -11,8 +16,6 @@ const Minimal = Loadable(lazy(() => import('../views/dashboards/Minimal')));
 const Analytical = Loadable(lazy(() => import('../views/dashboards/Analytical')));
 const Demographical = Loadable(lazy(() => import('../views/dashboards/Demographical')));
 const Modern = Loadable(lazy(() => import('../views/dashboards/Modern')));
-
-const Competitor = Loadable(lazy(() => import('../views/pages/Competitor')));
 
 /***** Apps ****/
 const Notes = Loadable(lazy(() => import('../views/apps/notes/Notes')));
@@ -110,6 +113,8 @@ const ThemeRoutes = [
     children: [
       { path: '/competitors', name: 'Competitors', exact: true, element: <Competitor /> },
       { path: '/', name: 'Home', element: <Competitor /> },
+      { path: '/delete', name: 'Delete Data', element: <DeleteData /> },
+      /*--------------------------------------------------------------------------------*/
       { path: '/dashboards/minimal', name: 'Minimal', exact: true, element: <Minimal /> },
       { path: '/dashboards/analytical', name: 'Analytical', exact: true, element: <Analytical /> },
       {
@@ -212,6 +217,19 @@ const ThemeRoutes = [
       { path: '/widget', name: 'widget', exact: true, element: <Widget /> },
       { path: '/casl', name: 'casl', exact: true, element: <CASL /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
+    ],
+  },
+  {
+    path: '/auth1',
+    element: <BlankLayout />,
+    children: [
+      { path: '404', element: <Error /> },
+      { path: '*', element: <Navigate to="/auth/404" /> },
+      { path: 'registerformik', element: <RegisterFormik /> },
+      { path: 'login', element: <Login /> },
+      { path: 'maintanance', element: <Maintanance /> },
+      { path: 'lockscreen', element: <LockScreen /> },
+      { path: 'recoverpwd', element: <RecoverPassword /> },
     ],
   },
   {
