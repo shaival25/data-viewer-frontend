@@ -2,7 +2,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container } from 'reactstrap';
 import Header from './header/Header';
-import Customizer from './customizer/Customizer';
 import Sidebar from './sidebars/vertical/Sidebar';
 import HorizontalHeader from './header/HorizontalHeader';
 import HorizontalSidebar from './sidebars/horizontal/HorizontalSidebar';
@@ -17,8 +16,6 @@ const FullLayout = () => {
 
   const location = useLocation();
   const getTitle = location.pathname.split('/')[2];
-
-  console.log(getTitle);
 
   return (
     <main>
@@ -52,7 +49,7 @@ const FullLayout = () => {
             <div>
               <Outlet />
             </div>
-            <Customizer className={customizerToggle ? 'showCustomizer' : ''} />
+            {/* <Customizer className={customizerToggle ? 'showCustomizer' : ''} /> */}
             {showMobileSidebar || customizerToggle ? <div className="sidebarOverlay" /> : ''}
           </Container>
         </div>

@@ -12,6 +12,8 @@ const Analytical = Loadable(lazy(() => import('../views/dashboards/Analytical'))
 const Demographical = Loadable(lazy(() => import('../views/dashboards/Demographical')));
 const Modern = Loadable(lazy(() => import('../views/dashboards/Modern')));
 
+const Competitor = Loadable(lazy(() => import('../views/pages/Competitor')));
+
 /***** Apps ****/
 const Notes = Loadable(lazy(() => import('../views/apps/notes/Notes')));
 const Chat = Loadable(lazy(() => import('../views/apps/chat/Chat')));
@@ -106,10 +108,16 @@ const ThemeRoutes = [
     path: '/',
     element: <FullLayout />,
     children: [
-      { path: '/', name: 'Home', element: <Navigate to="/dashboards/minimal" /> },
+      { path: '/competitors', name: 'Competitors', exact: true, element: <Competitor /> },
+      { path: '/', name: 'Home', element: <Competitor /> },
       { path: '/dashboards/minimal', name: 'Minimal', exact: true, element: <Minimal /> },
       { path: '/dashboards/analytical', name: 'Analytical', exact: true, element: <Analytical /> },
-      { path: '/dashboards/demographical', name: 'Demographical', exact: true, element: <Demographical /> },
+      {
+        path: '/dashboards/demographical',
+        name: 'Demographical',
+        exact: true,
+        element: <Demographical />,
+      },
       { path: '/dashboards/modern', name: 'Modern', exact: true, element: <Modern /> },
       { path: '/apps/notes', name: 'notes', exact: true, element: <Notes /> },
       { path: '/apps/chat', name: 'chat', exact: true, element: <Chat /> },
