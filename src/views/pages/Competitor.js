@@ -42,7 +42,7 @@ const Competitor = () => {
     grade: true,
     supplier: true,
   });
-  const [selectedField, setSelectedField] = useState('date');
+  const [selectedField, setSelectedField] = useState('name');
   const [searchValue, setSearchValue] = useState('');
 
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
@@ -56,7 +56,6 @@ const Competitor = () => {
       },
     });
     if (response.status === 200) {
-      console.log(response.data.data);
       setTotalQuantity(response.data.totalQuantity);
       setAvgRate(response.data.avgRate);
       const updatedData = response.data.data.map((item) => ({
@@ -91,6 +90,9 @@ const Competitor = () => {
 
   const getColumnDefs = () => {
     return allColumns.filter((col) => visibleColumns[col.field]);
+  };
+  const noRowsOverlayComponent = () => {
+    return 'No results found!';
   };
 
   const handleColumnVisibilityChange = (field) => {
@@ -143,11 +145,11 @@ const Competitor = () => {
     };
     const response = await axios.post('http://localhost:5000/competitors/search', apiData);
     if (response.status === 200) {
-      const updatedData = response.data.data.map((item) => ({
+      const updatedData = response?.data?.data?.map((item) => ({
         ...item,
         date: item.date.split('T')[0],
       }));
-      setRowData(updatedData);
+      setRowData(updatedData || []);
       setTotalQuantity(response.data.totalQuantity);
       setAvgRate(response.data.avgRate);
     }
@@ -155,27 +157,33 @@ const Competitor = () => {
 
   const autoSizeStrategy = {
     type: 'fitGridWidth',
-    defaultMinWidth: 280,
+    defaultMinWidth: 60,
+    checkboxSelection: true,
     columnLimits: [
       {
         colId: 'date',
         minWidth: 120,
       },
       {
-        colId: 'quantity',
-        minWidth: 90,
+        colId: 'name',
+        minWidth: 280,
       },
       {
-        colId: 'rate',
-        minWidth: 60,
+        colId: 'qunatity',
+        minWidth: 90,
       },
+
       {
         colId: 'top',
         minWidth: 100,
       },
       {
+        colId: 'grade',
+        minWidth: 280,
+      },
+      {
         colId: 'supplier',
-        minWidth: 100,
+        minWidth: 150,
       },
     ],
   };
@@ -194,7 +202,7 @@ const Competitor = () => {
         <Col md="6" lg="6">
           <Card body color="info" inverse>
             <CardTitle tag="h4">Average Rate</CardTitle>
-            <CardText>{avgRate.toFixed(2)}</CardText>
+            <CardText>{avgRate?.toFixed(2)}</CardText>
           </Card>
         </Col>
         <Col md="6" lg="6">
@@ -271,6 +279,7 @@ const Competitor = () => {
           rowData={rowData}
           columnDefs={getColumnDefs()}
           pagination
+          noRowsOverlayComponent={noRowsOverlayComponent}
         />
       </div>
     </div>
