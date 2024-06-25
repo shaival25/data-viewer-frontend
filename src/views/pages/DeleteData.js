@@ -9,11 +9,11 @@ import Datetime from 'react-datetime';
 import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import moment from 'moment';
 import ComponentCard from '../../components/ComponentCard';
-import { Calendar, Trash2 } from 'react-feather';
+import { Trash2 } from 'react-feather';
 
 require('moment/locale/en-gb');
 
-const Competitor = () => {
+const DeleteData = () => {
   const [rowData, setRowData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [date, setDate] = useState(moment());
@@ -202,4 +202,4 @@ const Competitor = () => {
   );
 };
 
-export default Competitor;
+export default DeleteData;

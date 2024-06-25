@@ -6,6 +6,7 @@ import Loadable from '../layouts/loader/Loadable';
 const Competitor = Loadable(lazy(() => import('../views/pages/Competitor')));
 const Login = Loadable(lazy(() => import('../views/pages/Login')));
 const DeleteData = Loadable(lazy(() => import('../views/pages/DeleteData')));
+const UsersPage = Loadable(lazy(() => import('../views/pages/Users')));
 /****Layouts*****/
 
 const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
@@ -114,6 +115,7 @@ const ThemeRoutes = [
       { path: '/competitors', name: 'Competitors', exact: true, element: <Competitor /> },
       { path: '/', name: 'Home', element: <Competitor /> },
       { path: '/delete', name: 'Delete Data', element: <DeleteData /> },
+      { path: '/users', name: 'Users', element: <UsersPage /> },
       /*--------------------------------------------------------------------------------*/
       { path: '/dashboards/minimal', name: 'Minimal', exact: true, element: <Minimal /> },
       { path: '/dashboards/analytical', name: 'Analytical', exact: true, element: <Analytical /> },
