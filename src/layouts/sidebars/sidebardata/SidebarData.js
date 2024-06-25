@@ -7,9 +7,10 @@ const SidebarData = [
     href: '/competitors',
     icon: <Icon.Database />,
     collapisble: false,
+    roles: ['admin', 'user'],
   },
-  { title: 'Delete', href: '/delete', icon: <Icon.Trash2 />, collapisble: false },
-  { title: 'Users', href: '/users', icon: <Icon.Users />, collapisble: false },
+  { title: 'Delete', href: '/delete', icon: <Icon.Trash2 />, collapisble: false, roles: ['admin'] },
+  { title: 'Users', href: '/users', icon: <Icon.Users />, collapisble: false, roles: ['admin'] },
   { caption: 'Personal' },
   {
     title: 'Dashboards',

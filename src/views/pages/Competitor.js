@@ -22,6 +22,7 @@ import 'ag-grid-community/styles/ag-theme-quartz.css';
 import Cookies from 'js-cookies';
 import { useEffect, useMemo, useState } from 'react';
 import { FilePlus } from 'react-feather';
+import Swal from 'sweetalert2';
 
 const Competitor = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -49,20 +50,24 @@ const Competitor = () => {
   const toggleFieldDropdown = () => setFieldDropdownOpen((prevState) => !prevState);
 
   const fetchData = async () => {
-    const response = await axios.get('http://localhost:5000/competitors', {
-      headers: {
-        Authorization: `Bearer ${Cookies.getItem('authToken')}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    if (response.status === 200) {
-      setTotalQuantity(response.data.totalQuantity);
-      setAvgRate(response.data.avgRate);
-      const updatedData = response.data.data.map((item) => ({
-        ...item,
-        date: item.date.split('T')[0],
-      }));
-      setRowData(updatedData);
+    try {
+      const response = await axios.get('http://localhost:5000/competitors', {
+        headers: {
+          Authorization: `Bearer ${Cookies.getItem('authToken')}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      if (response.status === 200) {
+        setTotalQuantity(response.data.totalQuantity);
+        setAvgRate(response.data.avgRate);
+        const updatedData = response.data.data.map((item) => ({
+          ...item,
+          date: item.date.split('T')[0],
+        }));
+        setRowData(updatedData);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -122,9 +127,20 @@ const Competitor = () => {
           },
         });
         if (response.status === 200) {
-          window.location.reload();
+          toggle7();
+          fetchData();
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'File uploaded successfully',
+          });
         }
       } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error uploading file',
+        });
         console.error('Error uploading file:', error);
       }
     } else {
@@ -137,21 +153,30 @@ const Competitor = () => {
   };
 
   const handleSearchInputChange = async (e) => {
-    const value = e.target.value;
-    setSearchValue(value);
-    const apiData = {
-      name: selectedField,
-      search: value,
-    };
-    const response = await axios.post('http://localhost:5000/competitors/search', apiData);
-    if (response.status === 200) {
-      const updatedData = response?.data?.data?.map((item) => ({
-        ...item,
-        date: item.date.split('T')[0],
-      }));
-      setRowData(updatedData || []);
-      setTotalQuantity(response.data.totalQuantity);
-      setAvgRate(response.data.avgRate);
+    try {
+      const value = e.target.value;
+      setSearchValue(value);
+      const apiData = {
+        name: selectedField,
+        search: value,
+      };
+      const response = await axios.post('http://localhost:5000/competitors/search', apiData);
+      if (response.status === 200) {
+        const updatedData = response?.data?.data?.map((item) => ({
+          ...item,
+          date: item.date.split('T')[0],
+        }));
+        setRowData(updatedData || []);
+        setTotalQuantity(response.data.totalQuantity);
+        setAvgRate(response.data.avgRate);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error fetching data',
+      });
+      console.error('Error fetching data:', error);
     }
   };
 

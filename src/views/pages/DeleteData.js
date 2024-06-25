@@ -10,6 +10,7 @@ import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 're
 import moment from 'moment';
 import ComponentCard from '../../components/ComponentCard';
 import { Trash2 } from 'react-feather';
+import Swal from 'sweetalert2';
 
 require('moment/locale/en-gb');
 
@@ -104,7 +105,7 @@ const DeleteData = () => {
   const handleRowDelete = async () => {
     const rowsId = selectedRows.map((row) => row._id);
     try {
-      const response = await axios.delete(`http://localhost:5000/competitors/`, {
+      const response = await axios.delete(`http://localhost:5000/competitors`, {
         data: {
           rowsId,
         },
@@ -113,15 +114,23 @@ const DeleteData = () => {
         },
       });
       if (response.status === 200) {
-        window.location.reload();
+        toggle7();
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Data deleted successfully',
+        });
+        fetchData(date);
       }
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: 'Something went wrong',
+      });
       console.error('Error deleting data:', error);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const defaultColDef = useMemo(() => {
     return {

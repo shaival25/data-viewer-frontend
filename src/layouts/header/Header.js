@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, UncontrolledDropdown, DropdownToggle, DropdownMenu, Button } from 'reactstrap';
 import * as Icon from 'react-feather';
@@ -11,7 +10,7 @@ import ProfileDD from './ProfileDD';
 import Logo from '../logo/Logo';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ user }) => {
   const navigate = useNavigate();
   const isDarkMode = useSelector((state) => state.customizer.isDark);
   const topbarColor = useSelector((state) => state.customizer.topbarBg);
@@ -55,7 +54,7 @@ const Header = () => {
             <img src={user1} alt="profile" className="rounded-circle" width="30" />
           </DropdownToggle>
           <DropdownMenu className="ddWidth">
-            <ProfileDD />
+            <ProfileDD user={user} />
             <div className="p-2 px-3">
               <Button onClick={handleLogout} color="danger" size="sm">
                 Logout

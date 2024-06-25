@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Nav } from 'reactstrap';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SimpleBar from 'simplebar-react';
 import SidebarData from '../sidebardata/SidebarData';
@@ -9,7 +9,7 @@ import { ToggleMobileSidebar } from '../../../store/customizer/CustomizerSlice';
 import NavItemContainer from './NavItemContainer';
 import NavSubMenu from './NavSubMenu';
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
   const location = useLocation();
   const currentURL = location.pathname.split('/').slice(0, -1).join('/');
 
@@ -22,12 +22,27 @@ const Sidebar = () => {
   const isFixed = useSelector((state) => state.customizer.isSidebarFixed);
   const dispatch = useDispatch();
 
+  const filterSidebarData = (data, roles) => {
+    return data.filter((item) => {
+      if (item.roles && !item.roles.includes(roles)) return false;
+      if (item.children) {
+        item.children = filterSidebarData(item.children, roles);
+      }
+      return true;
+    });
+  };
+
+  const filteredSidebarData = filterSidebarData(SidebarData, user.role);
+
   return (
     <div className={`sidebarBox shadow bg-${activeBg} ${isFixed ? 'fixedSidebar' : ''}`}>
       <SimpleBar style={{ height: '100%' }}>
         {/********Logo*******/}
         <div className="d-flex p-3 align-items-center">
-          <Logo />
+          <Link to="/" style={{ fontSize: '25px' }} className="text-decoration-none">
+            {' '}
+            Data Viewer
+          </Link>
           <Button
             close
             size="sm"
@@ -39,7 +54,7 @@ const Sidebar = () => {
 
         <div>
           <Nav vertical className={activeBg === 'white' ? '' : 'lightText'}>
-            {SidebarData.map((navi) => {
+            {filteredSidebarData.map((navi) => {
               if (navi.caption) {
                 return (
                   <div className="navCaption fw-bold text-uppercase mt-4" key={navi.caption}>
