@@ -40,8 +40,7 @@ const Sidebar = ({ user }) => {
         {/********Logo*******/}
         <div className="d-flex p-3 align-items-center">
           <Link to="/" style={{ fontSize: '25px' }} className="text-decoration-none">
-            {' '}
-            Data Viewer
+            <Logo /> Data Viewer
           </Link>
           <Button
             close

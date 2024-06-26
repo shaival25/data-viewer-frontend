@@ -7,8 +7,12 @@ import Cookies from 'js-cookies';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/apps/auth/AuthSlice';
+import Logo from '../../layouts/logo/Logo';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const initialValues = {
@@ -23,9 +27,9 @@ const Login = () => {
     };
     const response = await axios.post('http://localhost:5000/user/login', apiData);
     if (response.status === 200) {
+      dispatch(login(response.data.user));
       Cookies.setItem('authToken', response.data.token, { expires: 1 });
       navigate('/');
-      console.log('sad');
     }
   };
 
@@ -41,6 +45,7 @@ const Login = () => {
       <Container fluid className="h-100">
         <Row className="justify-content-center align-items-center h-100">
           <Col lg="12" className="loginContainer">
+            <Logo />
             <h2>Data Viewer</h2>
             <Card>
               <CardBody className="p-4 m-1">

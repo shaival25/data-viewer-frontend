@@ -86,7 +86,7 @@ const Competitor = () => {
     { field: 'name' },
     { field: 'quantity' },
     { field: 'rate' },
-    { field: 'top' },
+    { field: 'top', headerName: 'Terms of Payment' },
     { field: 'grade' },
     { field: 'supplier' },
   ];
@@ -182,7 +182,7 @@ const Competitor = () => {
 
   const autoSizeStrategy = {
     type: 'fitGridWidth',
-    defaultMinWidth: 60,
+    defaultMinWidth: 50,
     checkboxSelection: true,
     columnLimits: [
       {
@@ -194,13 +194,13 @@ const Competitor = () => {
         minWidth: 280,
       },
       {
-        colId: 'qunatity',
-        minWidth: 90,
+        colId: 'quantity',
+        minWidth: 80,
       },
 
       {
         colId: 'top',
-        minWidth: 100,
+        minWidth: 150,
       },
       {
         colId: 'grade',

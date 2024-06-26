@@ -29,14 +29,14 @@ const DeleteData = () => {
     { field: 'name' },
     { field: 'quantity' },
     { field: 'rate' },
-    { field: 'top' },
+    { field: 'top', headerName: 'Terms of Payment' },
     { field: 'grade' },
     { field: 'supplier' },
   ];
 
   const autoSizeStrategy = {
     type: 'fitGridWidth',
-    defaultMinWidth: 100,
+    defaultMinWidth: 50,
     columnLimits: [
       {
         colId: 'delete',
@@ -44,11 +44,11 @@ const DeleteData = () => {
       },
       {
         colId: 'addedDate',
-        minWidth: 120,
+        minWidth: 100,
       },
       {
         colId: 'date',
-        minWidth: 120,
+        minWidth: 100,
       },
       {
         colId: 'name',
@@ -56,23 +56,19 @@ const DeleteData = () => {
       },
       {
         colId: 'quantity',
-        minWidth: 90,
-      },
-      {
-        colId: 'rate',
         minWidth: 60,
       },
       {
         colId: 'top',
-        minWidth: 100,
+        minWidth: 150,
       },
       {
         colId: 'grade',
-        minWidth: 200,
+        minWidth: 240,
       },
       {
         colId: 'supplier',
-        minWidth: 100,
+        minWidth: 150,
       },
     ],
   };

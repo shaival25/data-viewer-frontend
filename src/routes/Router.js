@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/loader/Loadable';
+import PrivateRoute from '../views/components/PrivateRoute';
 
 /***Needed Pages  ***/
 const Competitor = Loadable(lazy(() => import('../views/pages/Competitor')));
@@ -112,10 +113,47 @@ const ThemeRoutes = [
     path: '/',
     element: <FullLayout />,
     children: [
-      { path: '/competitors', name: 'Competitors', exact: true, element: <Competitor /> },
-      { path: '/', name: 'Home', element: <Competitor /> },
-      { path: '/delete', name: 'Delete Data', element: <DeleteData /> },
-      { path: '/users', name: 'Users', element: <UsersPage /> },
+      {
+        path: '/competitors',
+        name: 'Competitors',
+        exact: true,
+        element: (
+          <PrivateRoute>
+            {' '}
+            <Competitor />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/',
+        name: 'Home',
+        element: (
+          <PrivateRoute>
+            {' '}
+            <Competitor />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/delete',
+        name: 'Delete Data',
+        element: (
+          <PrivateRoute>
+            {' '}
+            <DeleteData />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/users',
+        name: 'Users',
+        element: (
+          <PrivateRoute>
+            {' '}
+            <UsersPage />
+          </PrivateRoute>
+        ),
+      },
       /*--------------------------------------------------------------------------------*/
       { path: '/dashboards/minimal', name: 'Minimal', exact: true, element: <Minimal /> },
       { path: '/dashboards/analytical', name: 'Analytical', exact: true, element: <Analytical /> },
