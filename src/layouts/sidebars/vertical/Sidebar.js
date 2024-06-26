@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SimpleBar from 'simplebar-react';
 import SidebarData from '../sidebardata/SidebarData';
-import Logo from '../../logo/Logo';
+import { ReactComponent as Logo } from '../../../assets/images/logos/OPaqueLogo.svg';
 import { ToggleMobileSidebar } from '../../../store/customizer/CustomizerSlice';
 import NavItemContainer from './NavItemContainer';
 import NavSubMenu from './NavSubMenu';
@@ -20,6 +20,7 @@ const Sidebar = ({ user }) => {
 
   const activeBg = useSelector((state) => state.customizer.sidebarBg);
   const isFixed = useSelector((state) => state.customizer.isSidebarFixed);
+  const isMobileSidebar = useSelector((state) => state.customizer.isMobileSidebar);
   const dispatch = useDispatch();
 
   const filterSidebarData = (data, roles) => {
@@ -39,9 +40,7 @@ const Sidebar = ({ user }) => {
       <SimpleBar style={{ height: '100%' }}>
         {/********Logo*******/}
         <div className="d-flex p-3 align-items-center">
-          <Link to="/" style={{ fontSize: '25px' }} className="text-decoration-none">
-            <Logo /> Data Viewer
-          </Link>
+          <Logo />
           <Button
             close
             size="sm"

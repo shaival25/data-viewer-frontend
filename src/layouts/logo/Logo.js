@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import { ReactComponent as LogoDarkIcon } from '../../assets/images/logos/elite-dark-icon.svg';
+import { ReactComponent as LogoDarkIcon } from '../../assets/images/logos/OPaqueLogo.svg';
 import LogoDarkText from '../../assets/images/logos/OPaqueLogo.svg';
-import { ReactComponent as LogoWhiteIcon } from '../../assets/images/logos/elite-white-icon.svg';
+import { ReactComponent as LogoWhiteIcon } from '../../assets/images/logos/OPaqueLogo.svg';
 import LogoWhiteText from '../../assets/images/logos/OPaqueLogo.svg';
 
 const Logo = () => {
@@ -14,7 +14,7 @@ const Logo = () => {
     <Link to="/" className="d-flex align-items-center gap-2">
       {isDarkMode || activeSidebarBg !== 'white' ? (
         <>
-          <LogoWhiteIcon />
+          <LogoWhiteIcon width={20} />
           {toggleMiniSidebar ? (
             ''
           ) : (
@@ -23,7 +23,6 @@ const Logo = () => {
         </>
       ) : (
         <>
-          <LogoDarkIcon />
           {toggleMiniSidebar ? (
             ''
           ) : (

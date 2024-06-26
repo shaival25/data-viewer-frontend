@@ -19,6 +19,7 @@ import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css';
+import '../../assets/scss/custom.css';
 import Cookies from 'js-cookies';
 import { useEffect, useMemo, useState } from 'react';
 import { FilePlus } from 'react-feather';
@@ -215,40 +216,16 @@ const Competitor = () => {
 
   return (
     <div>
-      <h1>Competitors</h1>
       <Row>
-        <h5 className="mb-3 mt-3">Summary</h5>
-        <Col md="6" lg="6">
-          <Card body color="primary" inverse>
-            <CardTitle tag="h4">Total Quantity</CardTitle>
-            <CardText>{totalQuantity}</CardText>
-          </Card>
+        <Col>
+          <h2>Competitors</h2>
         </Col>
-        <Col md="6" lg="6">
-          <Card body color="info" inverse>
-            <CardTitle tag="h4">Average Rate</CardTitle>
-            <CardText>{avgRate?.toFixed(2)}</CardText>
-          </Card>
-        </Col>
-        <Col md="6" lg="6">
-          <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className="my-2">
-            <DropdownToggle caret>Select Columns</DropdownToggle>
-            <DropdownMenu>
-              {allColumns.map((col) => (
-                <DropdownItem
-                  key={col.field}
-                  toggle={false}
-                  onClick={() => handleColumnVisibilityChange(col.field)}
-                >
-                  <input type="checkbox" checked={visibleColumns[col.field]} readOnly /> {col.field}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
-        </Col>
-        <Col md="6" lg="6">
+        <Col>
           <Button color="success" onClick={toggle7.bind(null)}>
-            <FilePlus />
+            <div className="flex">
+              <FilePlus width={40} height={40} />
+              <span>Upload File</span>
+            </div>
           </Button>
           <Modal isOpen={modal7} toggle={toggle7.bind(null)}>
             <ModalHeader toggle={toggle7.bind(null)} charCode="Y">
@@ -268,11 +245,28 @@ const Competitor = () => {
           </Modal>
         </Col>
       </Row>
-
       <Row>
-        <Col md="6" lg="3">
+        <h5 className="mb-3 mt-3">Summary</h5>
+        <Col md="6" lg="4">
+          <Card body color="primary" inverse>
+            <CardTitle tag="h4">Total Quantity</CardTitle>
+            <CardText>{totalQuantity}</CardText>
+          </Card>
+        </Col>
+        <Col md="6" lg="4">
+          <Card body color="info" inverse>
+            <CardTitle tag="h4">Average Rate</CardTitle>
+            <CardText>{avgRate?.toFixed(2)}</CardText>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row width="100px">
+        <Col md="6" lg="1">
           <Dropdown isOpen={fieldDropdownOpen} toggle={toggleFieldDropdown} className="my-2">
-            <DropdownToggle caret>{selectedField}</DropdownToggle>
+            <DropdownToggle color="danger" caret>
+              {selectedField}
+            </DropdownToggle>
             <DropdownMenu>
               {searchFieldOptions.map((col) => (
                 <DropdownItem key={col} onClick={() => handleFieldSelection(col)}>
@@ -282,7 +276,7 @@ const Competitor = () => {
             </DropdownMenu>
           </Dropdown>
         </Col>
-        <Col md="6" lg="9">
+        <Col md="6" lg="5">
           {' '}
           <Input
             type="text"
@@ -292,11 +286,32 @@ const Competitor = () => {
             className="my-2"
           />
         </Col>
+        <Col md="6" lg="6">
+          <div className="d-flex justify-content-end">
+            <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className="my-2">
+              <DropdownToggle color="purple" caret>
+                Select Columns
+              </DropdownToggle>
+              <DropdownMenu>
+                {allColumns.map((col) => (
+                  <DropdownItem
+                    key={col.field}
+                    toggle={false}
+                    onClick={() => handleColumnVisibilityChange(col.field)}
+                  >
+                    <input type="checkbox" checked={visibleColumns[col.field]} readOnly />{' '}
+                    {col.field}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        </Col>
       </Row>
 
       <div
         className="ag-theme-quartz" // applying the grid theme
-        style={{ height: 500 }} // the grid will fill the size of the parent container
+        style={{ height: 1000 }} // the grid will fill the size of the parent container
       >
         <AgGridReact
           autoSizeStrategy={autoSizeStrategy}
@@ -304,6 +319,7 @@ const Competitor = () => {
           rowData={rowData}
           columnDefs={getColumnDefs()}
           pagination
+          // paginationAutoPageSize
           noRowsOverlayComponent={noRowsOverlayComponent}
         />
       </div>

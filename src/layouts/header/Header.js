@@ -17,7 +17,7 @@ import {
 import * as Icon from 'react-feather';
 import Cookies from 'js-cookies';
 import { ToggleMiniSidebar, ToggleMobileSidebar } from '../../store/customizer/CustomizerSlice';
-import Logo from '../logo/Logo';
+import { ReactComponent as Logo } from '../../assets/images/logos/OPaqueLogo.svg';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/apps/auth/AuthSlice';
 import axios from 'axios';
@@ -100,9 +100,7 @@ const Header = ({ user }) => {
         >
           <Icon.Menu size={22} />
         </Button>
-        <div href="/" className="d-sm-flex d-lg-none">
-          <Logo />
-        </div>
+
         <Button
           color={topbarColor}
           className="d-sm-block d-lg-none"

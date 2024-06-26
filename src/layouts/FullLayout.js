@@ -1,10 +1,8 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container } from 'reactstrap';
 import Header from './header/Header';
 import Sidebar from './sidebars/vertical/Sidebar';
-import HorizontalHeader from './header/HorizontalHeader';
-import HorizontalSidebar from './sidebars/horizontal/HorizontalSidebar';
 import axios from 'axios';
 import Cookies from 'js-cookies';
 import { useEffect, useState } from 'react';
@@ -17,6 +15,7 @@ const FullLayout = () => {
   const LayoutHorizontal = useSelector((state) => state.customizer.isLayoutHorizontal);
   const isFixedSidebar = useSelector((state) => state.customizer.isSidebarFixed);
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   const location = useLocation();
   const getTitle = location.pathname.split('/')[2];
@@ -28,8 +27,12 @@ const FullLayout = () => {
           Authorization: `Bearer ${Cookies.getItem('authToken')}`,
         },
       });
-      setUser(response.data);
+
+      if (response.status === 200) {
+        setUser(response.data);
+      }
     } catch (err) {
+      navigate('/auth1/login');
       console.error(err);
     }
   };
@@ -44,13 +47,10 @@ const FullLayout = () => {
         className={`pageWrapper d-md-block d-lg-flex ${toggleMiniSidebar ? 'isMiniSidebar' : ''}`}
       >
         {/******** Sidebar **********/}
-        {LayoutHorizontal ? (
-          ''
-        ) : (
-          <aside className={`sidebarArea ${showMobileSidebar ? 'showSidebar' : ''}`}>
-            <Sidebar user={user} />
-          </aside>
-        )}
+
+        <aside className={`sidebarArea ${showMobileSidebar ? 'showSidebar' : ''}`}>
+          <Sidebar user={user} />
+        </aside>
         {/********Content Area**********/}
 
         <div className={`contentArea ${topbarFixed ? 'fixedTopbar' : ''}`}>

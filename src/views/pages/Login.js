@@ -9,7 +9,7 @@ import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.sv
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/apps/auth/AuthSlice';
-import Logo from '../../layouts/logo/Logo';
+import { ReactComponent as Logo } from '../../assets/images/logos/OPaqueLogo.svg';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Login = () => {
       <Container fluid className="h-100">
         <Row className="justify-content-center align-items-center h-100">
           <Col lg="12" className="loginContainer">
-            <Logo />
+            <Logo width={200} />
             <h2>Data Viewer</h2>
             <Card>
               <CardBody className="p-4 m-1">
