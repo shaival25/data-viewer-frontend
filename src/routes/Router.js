@@ -15,16 +15,6 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/BlankLayout')));
 /***** Pages ****/
 
 /***** Apps ****/
-const Notes = Loadable(lazy(() => import('../views/apps/notes/Notes')));
-const Chat = Loadable(lazy(() => import('../views/apps/chat/Chat')));
-const Contacts = Loadable(lazy(() => import('../views/apps/contacts/Contacts')));
-const Calendar = Loadable(lazy(() => import('../views/apps/calendar/CalendarApp')));
-const Email = Loadable(lazy(() => import('../views/apps/email/Email')));
-const Shop = Loadable(lazy(() => import('../views/apps/ecommerce/Shop')));
-const ShopDetail = Loadable(lazy(() => import('../views/apps/ecommerce/ShopDetail')));
-const Treeview = Loadable(lazy(() => import('../views/apps/treeview/TreeView')));
-const TicketList = Loadable(lazy(() => import('../views/apps/ticket/TicketList')));
-const TicketDetail = Loadable(lazy(() => import('../views/apps/ticket/TicketDetail')));
 
 /***** Ui Elements ****/
 const Alerts = Loadable(lazy(() => import('../views/ui/Alerts')));
@@ -90,9 +80,6 @@ const CustomVectorMap = Loadable(lazy(() => import('../views/maps/CustomVectorMa
 /***** Widget Pages ****/
 const Widget = Loadable(lazy(() => import('../views/widget/Widget')));
 
-/***** CASL Access Control ****/
-const CASL = Loadable(lazy(() => import('../views/apps/accessControlCASL/AccessControl')));
-
 /***** Auth Pages ****/
 const Error = Loadable(lazy(() => import('../views/auth/Error')));
 const RegisterFormik = Loadable(lazy(() => import('../views/auth/RegisterFormik')));
@@ -151,21 +138,6 @@ const ThemeRoutes = [
       },
       /*--------------------------------------------------------------------------------*/
 
-      { path: '/apps/notes', name: 'notes', exact: true, element: <Notes /> },
-      { path: '/apps/chat', name: 'chat', exact: true, element: <Chat /> },
-      { path: '/apps/contacts', name: 'contacts', exact: true, element: <Contacts /> },
-      { path: '/apps/calendar', name: 'calendar', exact: true, element: <Calendar /> },
-      { path: '/apps/email', name: 'email', exact: true, element: <Email /> },
-      { path: '/ecom/shop', name: 'email', exact: true, element: <Shop /> },
-      { path: '/ecom/shopdetail', name: 'email', exact: true, element: <ShopDetail /> },
-      { path: '/tickt/ticket-list', name: 'ticket list', exact: true, element: <TicketList /> },
-      {
-        path: '/tickt/ticket-detail',
-        name: 'ticket detail',
-        exact: true,
-        element: <TicketDetail />,
-      },
-      { path: '/apps/treeview', name: 'email', exact: true, element: <Treeview /> },
       { path: '/ui/alerts', name: 'alerts', exact: true, element: <Alerts /> },
       { path: '/ui/badges', name: 'badges', exact: true, element: <Badges /> },
       { path: '/ui/buttons', name: 'buttons', exact: true, element: <Buttons /> },
@@ -242,7 +214,6 @@ const ThemeRoutes = [
       { path: '/icons/feather', name: 'feather', exact: true, element: <Feather /> },
       { path: '/map/vector', name: 'vector', exact: true, element: <CustomVectorMap /> },
       { path: '/widget', name: 'widget', exact: true, element: <Widget /> },
-      { path: '/casl', name: 'casl', exact: true, element: <CASL /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
