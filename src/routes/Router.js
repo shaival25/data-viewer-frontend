@@ -54,10 +54,6 @@ const TagSelect = Loadable(lazy(() => import('../views/form-pickers/TagSelect'))
 const FormValidate = Loadable(lazy(() => import('../views/form-validation/FormValidation')));
 const FormSteps = Loadable(lazy(() => import('../views/form-steps/Steps')));
 const FormEditor = Loadable(lazy(() => import('../views/form-editor/FormEditor')));
-/***** Table Pages ****/
-const Basictable = Loadable(lazy(() => import('../views/tables/TableBasic')));
-const CustomReactTable = Loadable(lazy(() => import('../views/tables/CustomReactTable')));
-const ReactBootstrapTable = Loadable(lazy(() => import('../views/tables/ReactBootstrapTable')));
 
 /***** Chart Pages ****/
 const ApexCharts = Loadable(lazy(() => import('../views/charts/ApexCharts')));
@@ -175,19 +171,6 @@ const ThemeRoutes = [
       { path: '/form-steps', name: 'form-steps', exact: true, element: <FormSteps /> },
       { path: '/form-editor', name: 'form-editor', exact: true, element: <FormEditor /> },
 
-      { path: '/tables/basic-table', name: 'basic-table', exact: true, element: <Basictable /> },
-      {
-        path: '/tables/react-table',
-        name: 'react-table',
-        exact: true,
-        element: <CustomReactTable />,
-      },
-      {
-        path: '/tables/data-table',
-        name: 'data-table',
-        exact: true,
-        element: <ReactBootstrapTable />,
-      },
       { path: '/charts/apex', name: 'apex', exact: true, element: <ApexCharts /> },
       { path: '/charts/chartjs', name: 'chartjs', exact: true, element: <ChartJs /> },
       { path: '/sample-pages/profile', name: 'profile', exact: true, element: <Profile /> },
