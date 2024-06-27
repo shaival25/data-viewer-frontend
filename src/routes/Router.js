@@ -55,10 +55,6 @@ const FormValidate = Loadable(lazy(() => import('../views/form-validation/FormVa
 const FormSteps = Loadable(lazy(() => import('../views/form-steps/Steps')));
 const FormEditor = Loadable(lazy(() => import('../views/form-editor/FormEditor')));
 
-/***** Chart Pages ****/
-const ApexCharts = Loadable(lazy(() => import('../views/charts/ApexCharts')));
-const ChartJs = Loadable(lazy(() => import('../views/charts/ChartJs')));
-
 /***** Sample Pages ****/
 const StarterKit = Loadable(lazy(() => import('../views/sample-pages/StarterKit')));
 const Profile = Loadable(lazy(() => import('../views/sample-pages/Profile')));
@@ -69,12 +65,6 @@ const HelperClass = Loadable(lazy(() => import('../views/sample-pages/HelperClas
 /***** Icon Pages ****/
 const Bootstrap = Loadable(lazy(() => import('../views/icons/Bootstrap')));
 const Feather = Loadable(lazy(() => import('../views/icons/Feather')));
-
-/***** Map Pages ****/
-const CustomVectorMap = Loadable(lazy(() => import('../views/maps/CustomVectorMap')));
-
-/***** Widget Pages ****/
-const Widget = Loadable(lazy(() => import('../views/widget/Widget')));
 
 /***** Auth Pages ****/
 const Error = Loadable(lazy(() => import('../views/auth/Error')));
@@ -171,8 +161,6 @@ const ThemeRoutes = [
       { path: '/form-steps', name: 'form-steps', exact: true, element: <FormSteps /> },
       { path: '/form-editor', name: 'form-editor', exact: true, element: <FormEditor /> },
 
-      { path: '/charts/apex', name: 'apex', exact: true, element: <ApexCharts /> },
-      { path: '/charts/chartjs', name: 'chartjs', exact: true, element: <ChartJs /> },
       { path: '/sample-pages/profile', name: 'profile', exact: true, element: <Profile /> },
       {
         path: '/sample-pages/helper-class',
@@ -195,8 +183,6 @@ const ThemeRoutes = [
       },
       { path: '/icons/bootstrap', name: 'bootstrap', exact: true, element: <Bootstrap /> },
       { path: '/icons/feather', name: 'feather', exact: true, element: <Feather /> },
-      { path: '/map/vector', name: 'vector', exact: true, element: <CustomVectorMap /> },
-      { path: '/widget', name: 'widget', exact: true, element: <Widget /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
