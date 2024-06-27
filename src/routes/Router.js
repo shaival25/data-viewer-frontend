@@ -14,11 +14,6 @@ const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/BlankLayout')));
 /***** Pages ****/
 
-const Minimal = Loadable(lazy(() => import('../views/dashboards/Minimal')));
-const Analytical = Loadable(lazy(() => import('../views/dashboards/Analytical')));
-const Demographical = Loadable(lazy(() => import('../views/dashboards/Demographical')));
-const Modern = Loadable(lazy(() => import('../views/dashboards/Modern')));
-
 /***** Apps ****/
 const Notes = Loadable(lazy(() => import('../views/apps/notes/Notes')));
 const Chat = Loadable(lazy(() => import('../views/apps/chat/Chat')));
@@ -155,15 +150,7 @@ const ThemeRoutes = [
         ),
       },
       /*--------------------------------------------------------------------------------*/
-      { path: '/dashboards/minimal', name: 'Minimal', exact: true, element: <Minimal /> },
-      { path: '/dashboards/analytical', name: 'Analytical', exact: true, element: <Analytical /> },
-      {
-        path: '/dashboards/demographical',
-        name: 'Demographical',
-        exact: true,
-        element: <Demographical />,
-      },
-      { path: '/dashboards/modern', name: 'Modern', exact: true, element: <Modern /> },
+
       { path: '/apps/notes', name: 'notes', exact: true, element: <Notes /> },
       { path: '/apps/chat', name: 'chat', exact: true, element: <Chat /> },
       { path: '/apps/contacts', name: 'contacts', exact: true, element: <Contacts /> },

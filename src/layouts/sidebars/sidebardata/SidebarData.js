@@ -11,46 +11,7 @@ const SidebarData = [
   },
   { title: 'Delete', href: '/delete', icon: <Icon.Trash2 />, collapisble: false, roles: ['admin'] },
   { title: 'Users', href: '/users', icon: <Icon.Users />, collapisble: false, roles: ['admin'] },
-  { caption: 'Personal' },
-  {
-    title: 'Dashboards',
-    href: '/dashboards',
-    id: 1,
-    suffix: '4',
-    suffixColor: 'bg-cyan rounded-pill text-dark-white',
-    icon: <Icon.Home />,
-    collapisble: true,
-    children: [
-      {
-        title: 'Minimal',
-        href: '/dashboards/minimal',
-        icon: <Icon.Disc />,
-        id: 1.1,
-        collapisble: false,
-      },
-      {
-        title: 'Analytical',
-        href: '/dashboards/analytical',
-        icon: <Icon.Disc />,
-        id: 1.2,
-        collapisble: false,
-      },
-      {
-        title: 'Demographical',
-        href: '/dashboards/demographical',
-        icon: <Icon.Disc />,
-        id: 1.3,
-        collapisble: false,
-      },
-      {
-        title: 'Modern',
-        href: '/dashboards/modern',
-        icon: <Icon.Disc />,
-        id: 1.4,
-        collapisble: false,
-      },
-    ],
-  },
+
   { caption: 'Apps' },
   {
     title: 'Notes',
