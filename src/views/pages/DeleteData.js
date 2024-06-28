@@ -165,7 +165,9 @@ const DeleteData = () => {
           <Row>
             <Col>
               <span onClick={toggle7.bind(null)}>
-                <Trash2 style={{ width: '15px', height: '15px', color: 'red' }} />
+                <Button color="danger">
+                  Delete Data <Trash2 size={20} />
+                </Button>
               </span>
               <Modal isOpen={modal7} toggle={toggle7.bind(null)}>
                 <ModalHeader toggle={toggle7.bind(null)} charCode="Y">

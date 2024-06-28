@@ -8,6 +8,7 @@ const Competitor = Loadable(lazy(() => import('../views/pages/Competitor')));
 const Login = Loadable(lazy(() => import('../views/pages/Login')));
 const DeleteData = Loadable(lazy(() => import('../views/pages/DeleteData')));
 const UsersPage = Loadable(lazy(() => import('../views/pages/Users')));
+const Test = Loadable(lazy(() => import('../views/pages/Test')));
 /****Layouts*****/
 
 const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
@@ -119,6 +120,16 @@ const ThemeRoutes = [
           <PrivateRoute>
             {' '}
             <UsersPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/test',
+        name: 'Test',
+        element: (
+          <PrivateRoute>
+            {' '}
+            <Test />
           </PrivateRoute>
         ),
       },

@@ -1,63 +1,77 @@
-/* custom-ag-grid-styles.css */
-
-.ag-theme-quartz .ag-paging-panel {
-  display: flex;
-  justify-content: center;
+* {
 }
 
-@media (max-width: 600px) {
-  .ag-theme-quartz .ag-paging-panel {
-    align-items: center;
-    padding-bottom: 20px;
-  }
-
-  .ag-theme-quartz .ag-paging-panel .ag-paging-page-summary-panel,
-  .ag-theme-quartz .ag-paging-panel .ag-paging-page-size {
-    margin-top: 13px;
-  }
-  .ag-paging-panel.ag-unselectable span {
-    width: 100% !important;
-    margin-right: 0;
-    margin-top: 0px;
-  }
-  span.ag-paging-row-summary-panel span,
-  span.ag-paging-description span {
-    padding: 0 2px;
-  }
-  .ag-picker-field.ag-labeled.ag-label-align-left.ag-select {
-    display: flex;
-    margin-top: 5px;
-    font-size: 10px;
-  }
-  span.ag-paging-row-summary-panel {
-    display: flex !important;
-    font-size: 11px;
-    padding: 16px 0 0;
-  }
-  span#ag-6-start-page {
-    display: none;
-  }
-  span.ag-paging-page-summary-panel div,
-  span.ag-paging-page-summary-panel div span {
-    display: inline-block;
-  }
-
-  span.ag-paging-description span {
-    font-size: 10px;
-    margin: 0;
-    padding: 0;
-  }
-  span.ag-paging-page-summary-panel div {
-    margin: 0;
-    padding: 0;
-    margin-top: 5px;
-  }
-  .ag-paging-panel > .ag-paging-page-size .ag-wrapper {
-    /* min-width: calc(var(--ag-grid-size)* 10); */
-    min-width: 55px !important;
-  }
+::selection {
+  color: #fff;
+  background: #664aff;
 }
 
-button.btn.btn-success {
-  float: right;
+.container {
+  /*   max-width: 450px; */
+  /*   margin: 150px auto; */
+}
+
+.searchInput {
+  background: #fff;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.searchInput input {
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput.active input {
+  border-radius: 5px 5px 0 0;
+}
+
+.searchInput .resultBox {
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.searchInput.active .resultBox {
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.resultBox li {
+  list-style: none;
+  padding: 8px 12px;
+  display: none;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+}
+
+.searchInput.active .resultBox li {
+  display: block;
+}
+.resultBox li:hover {
+  background: #efefef;
+}
+
+.searchInput .icon {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 55px;
+  width: 55px;
+  text-align: center;
+  line-height: 55px;
+  font-size: 20px;
+  color: #644bff;
+  cursor: pointer;
 }

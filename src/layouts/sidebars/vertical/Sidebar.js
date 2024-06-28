@@ -52,10 +52,10 @@ const Sidebar = ({ user }) => {
 
         <div>
           <Nav vertical className={activeBg === 'white' ? '' : 'lightText'}>
-            {filteredSidebarData.map((navi) => {
+            {filteredSidebarData.map((navi, index) => {
               if (navi.caption) {
                 return (
-                  <div className="navCaption fw-bold text-uppercase mt-4" key={navi.caption}>
+                  <div key={index} className="navCaption fw-bold text-uppercase mt-4">
                     {navi.caption}
                   </div>
                 );

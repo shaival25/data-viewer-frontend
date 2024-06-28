@@ -24,6 +24,7 @@ import Cookies from 'js-cookies';
 import { useEffect, useMemo, useState } from 'react';
 import { FilePlus } from 'react-feather';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Competitor = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -44,6 +45,9 @@ const Competitor = () => {
     grade: true,
     supplier: true,
   });
+
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const [selectedField, setSelectedField] = useState('name');
   const [searchValue, setSearchValue] = useState('');
 
@@ -214,6 +218,27 @@ const Competitor = () => {
     ],
   };
 
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/user`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.getItem('authToken')}`,
+        },
+      });
+
+      if (response.status === 200) {
+        setUser(response.data);
+      }
+    } catch (err) {
+      navigate('/auth1/login');
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <div>
       <Row>
@@ -221,12 +246,15 @@ const Competitor = () => {
           <h2>Competitors</h2>
         </Col>
         <Col>
-          <Button color="success" onClick={toggle7.bind(null)}>
-            <div className="flex">
-              <FilePlus width={40} height={40} />
-              <span>Upload File</span>
-            </div>
-          </Button>
+          {user.role === 'admin' ? (
+            <Button color="success" onClick={toggle7.bind(null)}>
+              <div className="flex">
+                <FilePlus width={40} height={40} />
+                <span>Upload File</span>
+              </div>
+            </Button>
+          ) : null}
+
           <Modal isOpen={modal7} toggle={toggle7.bind(null)}>
             <ModalHeader toggle={toggle7.bind(null)} charCode="Y">
               Upload .XLSX File
@@ -249,13 +277,13 @@ const Competitor = () => {
         <h5 className="mb-3 mt-3">Summary</h5>
         <Col md="6" lg="4">
           <Card body color="primary" inverse>
-            <CardTitle tag="h4">Total Quantity</CardTitle>
+            <CardTitle tag="h4">Total Quantity (KG)</CardTitle>
             <CardText>{totalQuantity}</CardText>
           </Card>
         </Col>
         <Col md="6" lg="4">
           <Card body color="info" inverse>
-            <CardTitle tag="h4">Average Rate</CardTitle>
+            <CardTitle tag="h4">Average Rate (INR/KG)</CardTitle>
             <CardText>{avgRate?.toFixed(2)}</CardText>
           </Card>
         </Col>
