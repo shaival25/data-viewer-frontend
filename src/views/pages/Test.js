@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookies';
 import { format } from 'date-fns';
+import DatePicker from 'react-multi-date-picker';
+import Chart from 'react-apexcharts';
 import {
   Button,
   Card,
@@ -34,6 +36,9 @@ import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver';
 
 const DataTable = () => {
+  const today = new Date();
+  const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  const [dates, setDates] = useState();
   const columns = ['date', 'name', 'quantity', 'rate', 'amount', 'terms', 'grade', 'supplier'];
   const columnDisplayNames = {
     date: 'Date',
@@ -51,6 +56,7 @@ const DataTable = () => {
   const [rowData, setRowData] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [avgRate, setAvgRate] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -67,6 +73,30 @@ const DataTable = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionsRef = useRef(null);
+
+  const [seriespie, setSeriespie] = useState([]);
+  const [labelspie, setLabelspie] = useState([]);
+
+  const optionspie = {
+    chart: {
+      id: 'pie-chart',
+    },
+    dataLabels: {
+      enabled: true,
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '100px',
+        },
+      },
+    },
+    legend: {
+      show: true,
+      width: '50px',
+    },
+    labels: labelspie,
+  };
 
   const toggle7 = () => {
     setModal7(!modal7);
@@ -143,11 +173,14 @@ const DataTable = () => {
       if (response.status === 200) {
         setTotalQuantity(response.data.totalQuantity);
         setAvgRate(response.data.avgRate);
+        setTotalAmount(response.data.totalAmount);
         const updatedData = response.data.data.map((item) => ({
           ...item,
           date: format(new Date(item?.date), 'dd/MM/yyyy'),
         }));
         setRowData(updatedData);
+        setSeriespie(response.data.suppliersCount.map((item) => item.count));
+        setLabelspie(response.data.suppliersCount.map((item) => item.supplier));
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -237,6 +270,7 @@ const DataTable = () => {
       const response = await axios.post(`http://localhost:5000/competitors/search`, apiData);
       if (response.status === 200) {
         setAvgRate(response.data.avgRate);
+        setTotalAmount(response.data.totalAmount);
         setTotalQuantity(response.data.totalQuantity);
         const updatedData = response.data.data.map((item) => ({
           ...item,
@@ -298,6 +332,25 @@ const DataTable = () => {
     const blob = new Blob([csvData.join('\n')], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, 'data.csv');
   };
+  const handleDateChange = async (dates) => {
+    const formattedDates = dates.map((date) => date.format('YYYY-MM-DD'));
+    const response = await axios.post('http://localhost:5000/competitors/date-range', {
+      startDateString: formattedDates[0],
+      endDateString: formattedDates[1],
+    });
+    if (response.status === 200) {
+      setTotalQuantity(response.data.data.totalQuantity);
+      setAvgRate(response.data.data.avgRate);
+      setTotalAmount(response.data.data.totalAmount);
+      const updatedData = response.data.data.data.map((item) => ({
+        ...item,
+        date: format(new Date(item?.date), 'dd/MM/yyyy'),
+      }));
+      setRowData(updatedData);
+      setSeriespie(response.data.suppliersCount.map((item) => item.count));
+      setLabelspie(response.data.suppliersCount.map((item) => item.supplier));
+    }
+  };
 
   return (
     <>
@@ -347,10 +400,32 @@ const DataTable = () => {
             <CardText>{avgRate?.toFixed(2)}</CardText>
           </Card>
         </Col>
+        <Col md="6" lg="4">
+          <Card body color="info" inverse>
+            <CardTitle tag="h4">Total Amount (INR)</CardTitle>
+            <CardText>{totalAmount}</CardText>
+          </Card>
+        </Col>
+        <Col md="6" lg="4">
+          <div className="chart-wrapper" style={{ width: '100%', margin: '0 auto', height: 350 }}>
+            <Chart options={optionspie} series={seriespie} type="pie" height="300" />
+          </div>
+        </Col>
       </Row>
       <Button color="primary" onClick={exportToCSV}>
         Export CSV
       </Button>
+      <DatePicker
+        placeholder="Select Dates"
+        value={dates}
+        onChange={setDates}
+        onClose={() => handleDateChange(dates)}
+        numberOfMonths={2}
+        offsetY={10}
+        range
+        rangeHover
+        format="MMMM DD"
+      />
       <Row width="100px">
         <Col md="6" lg="1">
           <Dropdown isOpen={fieldDropdownOpen} toggle={toggleFieldDropdown} className="my-2">

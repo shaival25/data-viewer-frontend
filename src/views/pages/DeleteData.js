@@ -11,6 +11,7 @@ import moment from 'moment';
 import ComponentCard from '../../components/ComponentCard';
 import { Trash2 } from 'react-feather';
 import Swal from 'sweetalert2';
+import { format } from 'date-fns';
 
 require('moment/locale/en-gb');
 
@@ -29,7 +30,8 @@ const DeleteData = () => {
     { field: 'name' },
     { field: 'quantity' },
     { field: 'rate' },
-    { field: 'top', headerName: 'Terms of Payment' },
+    { field: 'amount' },
+    { field: 'terms', headerName: 'Terms' },
     { field: 'grade' },
     { field: 'supplier' },
   ];
@@ -59,6 +61,10 @@ const DeleteData = () => {
         minWidth: 60,
       },
       {
+        colId: 'amount',
+        minWidth: 60,
+      },
+      {
         colId: 'top',
         minWidth: 150,
       },
@@ -78,7 +84,7 @@ const DeleteData = () => {
       const response = await axios.post(
         `http://localhost:5000/competitors/date`,
         {
-          date: date1.format('DD-MM-YYYY'),
+          date: date1,
         },
         {
           headers: {
@@ -88,7 +94,8 @@ const DeleteData = () => {
       );
       if (response.status === 200) {
         response.data.map((item) => {
-          item.date = item.date.split('T')[0];
+          item.date = format(new Date(item.date), 'dd/MM/yyyy');
+          item.addedDate = format(new Date(item.addedDate), 'dd/MM/yyyy');
         });
 
         setRowData(response.data);
