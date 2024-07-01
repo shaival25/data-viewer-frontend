@@ -323,15 +323,22 @@ const DataTable = () => {
   }, [sortConfig]);
   const exportToCSV = () => {
     const csvData = [];
-    csvData.push(columnDisplayNames.join(',')); // Add header row
+
+    // Add header row
+    const headerRow = columns.map((col) => columnDisplayNames[col]).join(',');
+    csvData.push(headerRow);
+
+    // Add data rows
     rowData.forEach((row) => {
       const rowData = columns.map((col) => row[col]);
       csvData.push(rowData.join(','));
     });
 
+    // Create a Blob and save as CSV file
     const blob = new Blob([csvData.join('\n')], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, 'data.csv');
   };
+
   const handleDateChange = async (dates) => {
     const formattedDates = dates.map((date) => date.format('YYYY-MM-DD'));
     const response = await axios.post('http://localhost:5000/competitors/date-range', {
@@ -347,8 +354,8 @@ const DataTable = () => {
         date: format(new Date(item?.date), 'dd/MM/yyyy'),
       }));
       setRowData(updatedData);
-      setSeriespie(response.data.suppliersCount.map((item) => item.count));
-      setLabelspie(response.data.suppliersCount.map((item) => item.supplier));
+      setSeriespie(response.data.data.suppliersCount.map((item) => item.count));
+      setLabelspie(response.data.data.suppliersCount.map((item) => item.supplier));
     }
   };
 
